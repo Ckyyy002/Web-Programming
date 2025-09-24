@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Registrasi Mahasiswa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Form Registrasi Mahasiswa</h2>
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="nama">Nama Mahasiswa</label>
+        <input type="text" id="nama" name="nama" list="namaList" placeholder="Masukkan nama...">
+        <datalist id="namaList">
+          <option value="Lucky Himawan Prasetya">
+          <option value="Andi Wijaya">
+          <option value="Budi Santoso">
+          <option value="Citra Dewi">
+          <option value="Dewi Lestari">
+        </datalist>
+      </div>
+
+      <div class="form-group">
+        <label for="nrp">NRP</label>
+        <input type="text" id="nrp" name="nrp" placeholder="5025XXXXXX">
+      </div>
+
+      <div class="form-group">
+        <label for="matkul">Mata Kuliah</label>
+        <input type="text" id="matkul" name="matkul" placeholder="Pemrograman Web">
+      </div>
+
+      <div class="form-group">
+        <label for="dosen">Dosen</label>
+        <input type="text" id="dosen" name="dosen" placeholder="Nama Dosen">
+      </div>
+
+      <h3>Cari Kode Pos</h3>
+      <div class="form-group">
+        <label for="provinsi">Provinsi</label>
+        <select id="provinsi">
+          <option value="">-- Pilih Provinsi --</option>
+          <option value="jawaTimur">Jawa Timur</option>
+          <option value="jawaBarat">Jawa Barat</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="kabupaten">Kabupaten/Kota</label>
+        <select id="kabupaten">
+          <option value="">-- Pilih Kabupaten/Kota --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="kecamatan">Kecamatan</label>
+        <select id="kecamatan">
+          <option value="">-- Pilih Kecamatan --</option>
+        </select>
+      </div>
+
+      <button type="button" class="btn" onclick="cariKodePos()">Cari Kode Pos</button>
+      <div id="hasilKodePos" class="output"></div>
+
+      <h3>Device yang Digunakan</h3>
+      <div class="form-group">
+        <label for="device">Device</label>
+        <select id="device">
+          <option value="">-- Pilih Device --</option>
+          <option value="laptop">Laptop</option>
+          <option value="handphone">Handphone</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="merk">Merk</label>
+        <select id="merk">
+          <option value="">-- Pilih Merk --</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn">Submit</button>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

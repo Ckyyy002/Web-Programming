@@ -1,3 +1,8 @@
+| Name           | NRP        |
+| ---            | ---        |
+| Ary Pasya Fernanda | 5025241053 |
+| Lucky Himawan Prasetya | 5025241147 |
+
 # 🌿 Taman Flora — Website Landing Page
 
 Sebuah website statis yang menampilkan informasi lengkap mengenai **Taman Flora**, taman rekreasi dan edukasi hijau di tengah kota. Website ini dibuat menggunakan **HTML**, **CSS (Bootstrap 4)**, dan sedikit **JavaScript** untuk interaksi sederhana.

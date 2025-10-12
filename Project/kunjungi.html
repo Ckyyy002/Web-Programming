@@ -68,6 +68,23 @@
 
           <button type="submit" class="btn btn-success btn-block">Kirim</button>
         </form>
+
+        <!-- Tambahan: Tabel Daftar Pengunjung -->
+        <div class="mt-5">
+          <h2 class="text-center mb-4">Daftar Pengunjung</h2>
+          <table class="table table-bordered text-center" id="tabelPengunjung">
+            <thead class="thead-light">
+              <tr>
+                <th>Nama</th>
+                <th>Asal</th>
+                <th>Umur</th>
+                <th>Telepon</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -82,9 +99,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body" id="hasilIsi">
-          <!-- Hasil form akan muncul di sini -->
-        </div>
+        <div class="modal-body" id="hasilIsi"></div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
         </div>
@@ -98,8 +113,49 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
   <script>
+    // Simpan data ke localStorage
+    function simpanData(nama, asal, umur, telepon) {
+      let data = JSON.parse(localStorage.getItem("pengunjung")) || [];
+      data.push({ nama, asal, umur, telepon });
+      localStorage.setItem("pengunjung", JSON.stringify(data));
+      renderTabel();
+    }
+
+    // Hapus data dari tabel & localStorage
+    function hapusData(index) {
+      let data = JSON.parse(localStorage.getItem("pengunjung")) || [];
+      data.splice(index, 1);
+      localStorage.setItem("pengunjung", JSON.stringify(data));
+      renderTabel();
+    }
+
+    // Render tabel dari localStorage
+    function renderTabel() {
+      let data = JSON.parse(localStorage.getItem("pengunjung")) || [];
+      const tbody = document.querySelector("#tabelPengunjung tbody");
+      tbody.innerHTML = "";
+
+      data.forEach((item, index) => {
+        const row = `
+          <tr>
+            <td>${item.nama}</td>
+            <td>${item.asal}</td>
+            <td>${item.umur}</td>
+            <td>${item.telepon}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" onclick="hapusData(${index})">Hapus</button>
+            </td>
+          </tr>`;
+        tbody.innerHTML += row;
+      });
+    }
+
+    // Jalankan saat halaman dimuat
+    document.addEventListener("DOMContentLoaded", renderTabel);
+
+    // Fungsi utama
     function tampilkanModal(event) {
-      event.preventDefault(); // cegah reload halaman
+      event.preventDefault();
 
       const nama = document.getElementById('nama').value;
       const asal = document.getElementById('asal').value;
@@ -107,13 +163,9 @@
       const telepon = document.getElementById('telepon').value;
 
       let harga;
-      if (umur < 3) {
-        harga = "Gratis (Bayi di bawah 3 tahun)";
-      } else if (umur <= 12) {
-        harga = "Rp10.000 (Anak-anak)";
-      } else {
-        harga = "Rp20.000 (Dewasa)";
-      }
+      if (umur < 3) harga = "Gratis (Bayi di bawah 3 tahun)";
+      else if (umur <= 12) harga = "Rp10.000 (Anak-anak)";
+      else harga = "Rp20.000 (Dewasa)";
 
       document.getElementById('hasilIsi').innerHTML = `
         <p><strong>Nama:</strong> ${nama}</p>
@@ -124,10 +176,13 @@
         <h5 class="text-success">Harga Tiket Anda: ${harga}</h5>
       `;
 
+      // Simpan data ke localStorage
+      simpanData(nama, asal, umur, telepon);
+
       // Tampilkan modal
       $('#hasilModal').modal('show');
 
-      // Reset form saat modal ditutup
+      // Reset form setelah modal ditutup
       $('#hasilModal').on('hidden.bs.modal', function () {
         document.getElementById('formTiket').reset();
       });

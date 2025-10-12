@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Kunjungi Kami - Taman Flora</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="kunjungi">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Taman Flora</a>
+      <div class="collapse navbar-collapse">
+        <div class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="index.html">Beranda</a>
+          <a class="nav-item nav-link" href="tiket.html">Tiket</a>
+          <a class="nav-item nav-link" href="fasilitas.html">Fasilitas</a>
+          <a class="nav-item nav-link" href="tentang.html">Tentang Kami</a>
+          <a class="nav-item nav-link btn btn-primary text-white tombol active" href="kunjungi.html">Kunjungi</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="container">
+    <div class="page-header">
+      <h1>Kunjungi Kami</h1>
+      <p>Alamat dan informasi kontak</p>
+    </div>
+
+    <div class="page-content">
+      <p><strong>Alamat:</strong> Jl. Raya Flora No.123, Surabaya</p>
+      <p><strong>Telepon:</strong> 0812-3456-7890</p>
+      <p><strong>Email:</strong> info@tamanflora.com</p>
+
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.0302102798467!2d112.7520883!3d-7.8416156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7ddc6f497e34f%3A0x7a39cb8c1d8c62cf!2sKebun%20Binatang%20Surabaya!5e0!3m2!1sid!2sid!4v1700000000000"
+          width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+      </div>
+
+      <!-- Form Pengunjung -->
+      <div class="page-form mt-5">
+        <h2 class="text-center mb-4">Isi Data Pengunjung</h2>
+        <form id="formTiket" class="p-4 bg-light rounded shadow-sm" onsubmit="return tampilkanModal(event)">
+          <div class="form-group">
+            <label for="nama">Nama</label>
+            <input type="text" class="form-control" id="nama" placeholder="Masukkan nama Anda" required>
+          </div>
+
+          <div class="form-group">
+            <label for="asal">Asal</label>
+            <input type="text" class="form-control" id="asal" placeholder="Kota asal Anda" required>
+          </div>
+
+          <div class="form-group">
+            <label for="umur">Umur</label>
+            <input type="number" class="form-control" id="umur" placeholder="Umur Anda" required>
+          </div>
+
+          <div class="form-group">
+            <label for="telepon">Nomor Telepon</label>
+            <input type="tel" class="form-control" id="telepon" placeholder="08xxxxxxxxxx" required>
+          </div>
+
+          <button type="submit" class="btn btn-success btn-block">Kirim</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Hasil -->
+  <div class="modal fade" id="hasilModal" tabindex="-1" role="dialog" aria-labelledby="hasilModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="hasilModalLabel">Informasi Tiket Anda</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="hasilIsi">
+          <!-- Hasil form akan muncul di sini -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+  <script>
+    function tampilkanModal(event) {
+      event.preventDefault(); // cegah reload halaman
+
+      const nama = document.getElementById('nama').value;
+      const asal = document.getElementById('asal').value;
+      const umur = parseInt(document.getElementById('umur').value);
+      const telepon = document.getElementById('telepon').value;
+
+      let harga;
+      if (umur < 3) {
+        harga = "Gratis (Bayi di bawah 3 tahun)";
+      } else if (umur <= 12) {
+        harga = "Rp10.000 (Anak-anak)";
+      } else {
+        harga = "Rp20.000 (Dewasa)";
+      }
+
+      document.getElementById('hasilIsi').innerHTML = `
+        <p><strong>Nama:</strong> ${nama}</p>
+        <p><strong>Asal:</strong> ${asal}</p>
+        <p><strong>Umur:</strong> ${umur} tahun</p>
+        <p><strong>Nomor Telepon:</strong> ${telepon}</p>
+        <hr>
+        <h5 class="text-success">Harga Tiket Anda: ${harga}</h5>
+      `;
+
+      // Tampilkan modal
+      $('#hasilModal').modal('show');
+
+      // Reset form saat modal ditutup
+      $('#hasilModal').on('hidden.bs.modal', function () {
+        document.getElementById('formTiket').reset();
+      });
+
+      return false;
+    }
+  </script>
+
+</body>
+</html>

@@ -69,7 +69,7 @@
           <button type="submit" class="btn btn-success btn-block">Kirim</button>
         </form>
 
-        <!-- Tambahan: Tabel Daftar Pengunjung -->
+        <!-- Tabel Daftar Pengunjung -->
         <div class="mt-5">
           <h2 class="text-center mb-4">Daftar Pengunjung</h2>
           <table class="table table-bordered text-center" id="tabelPengunjung">
@@ -99,8 +99,11 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body" id="hasilIsi"></div>
+        <div class="modal-body" id="hasilIsi">
+          <!-- isi tiket -->
+        </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="btnPesan">Pesan</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
         </div>
       </div>
@@ -153,7 +156,7 @@
     // Jalankan saat halaman dimuat
     document.addEventListener("DOMContentLoaded", renderTabel);
 
-    // Fungsi utama
+    // Tampilkan modal & atur logika tombol
     function tampilkanModal(event) {
       event.preventDefault();
 
@@ -167,6 +170,7 @@
       else if (umur <= 12) harga = "Rp10.000 (Anak-anak)";
       else harga = "Rp20.000 (Dewasa)";
 
+      // Isi modal
       document.getElementById('hasilIsi').innerHTML = `
         <p><strong>Nama:</strong> ${nama}</p>
         <p><strong>Asal:</strong> ${asal}</p>
@@ -176,14 +180,18 @@
         <h5 class="text-success">Harga Tiket Anda: ${harga}</h5>
       `;
 
-      // Simpan data ke localStorage
-      simpanData(nama, asal, umur, telepon);
-
       // Tampilkan modal
       $('#hasilModal').modal('show');
 
-      // Reset form setelah modal ditutup
-      $('#hasilModal').on('hidden.bs.modal', function () {
+      // Tombol "Pesan" diklik
+      document.getElementById('btnPesan').onclick = function() {
+        simpanData(nama, asal, umur, telepon);
+        $('#hasilModal').modal('hide');
+        alert("Pesanan berhasil ditambahkan ke daftar pengunjung!");
+      };
+
+      // Reset form saat modal ditutup
+      $('#hasilModal').on('hidden.bs.modal', function() {
         document.getElementById('formTiket').reset();
       });
 

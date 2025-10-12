@@ -46,5 +46,10 @@ Menampilkan:
 ## ⚙️ Cara Menjalankan Proyek
 
 1. **Unduh atau clone repositori ini:**
-   ```bash
-   git clone https://github.com/username/taman-flora.git
+   ```
+   git clone --no-checkout https://github.com/Ckyyy002/Web-Programming.git
+   cd Web-Programming
+   git sparse-checkout init --cone
+   git sparse-checkout set project
+   git checkout
+   ```

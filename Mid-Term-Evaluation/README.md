@@ -37,5 +37,3 @@ Struktur halaman terpisah seperti:
 Semua halaman mempertahankan **navbar dan header yang sama**, sehingga pengalaman pengguna tetap konsisten.
 
 ---
-## 📁 Struktur Folder
-

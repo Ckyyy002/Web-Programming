@@ -1,5 +1,5 @@
 <?php
-include 'koneksi.php';
+include 'connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

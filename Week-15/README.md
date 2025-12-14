@@ -1,4 +1,4 @@
-# Sistem Informasi Data Siswa - Kelas IX RPL
+# Sistem Informasi Data Siswa
 
 Aplikasi web sederhana untuk mengelola dan menampilkan data siswa (khususnya kelas IX Rekayasa Perangkat Lunak). Aplikasi ini dibangun menggunakan PHP Native dan MySQL, serta dilengkapi fitur untuk mengekspor data laporan ke dalam format PDF menggunakan library FPDF.
 

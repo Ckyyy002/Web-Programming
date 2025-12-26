@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --primary-admin: #667eea;
+    --primary-pegawai: #2ecc71;
+    --primary-pengurus: #f39c12;
+    --dark-overlay: rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f0f2f5;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.header-profile {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-text h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.profile-text p {
+    color: #777;
+    font-size: 14px;
+}
+
+.badge-role {
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.role-admin {
+    background: var(--primary-admin);
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
+}
+
+.role-pegawai {
+    background: var(--primary-pegawai);
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.4);
+}
+
+.role-pengurus {
+    background: var(--primary-pengurus);
+    box-shadow: 0 4px 10px rgba(243, 156, 18, 0.4);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card-menu {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+    border-bottom: 5px solid transparent;
+}
+
+.card-menu:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-menu h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.card-menu span {
+    font-size: 30px;
+    color: #ccc;
+    align-self: flex-end;
+}
+
+.border-admin:hover {
+    border-bottom-color: var(--primary-admin);
+}
+
+.border-pegawai:hover {
+    border-bottom-color: var(--primary-pegawai);
+}
+
+.border-pengurus:hover {
+    border-bottom-color: var(--primary-pengurus);
+}
+
+.btn-logout {
+    display: inline-block;
+    padding: 10px 25px;
+    background: #ff4757;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-logout:hover {
+    background: #ff6b81;
+}
+
+.kotak_login {
+    background: white;
+    width: 350px;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.tulisan_login {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.form_login {
+    width: 100%;
+    padding: 15px 20px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 50px;
+    outline: none;
+    transition: 0.3s;
+    background: #f9f9f9;
+}
+
+.form_login:focus {
+    border-color: #764ba2;
+    background: #fff;
+}
+
+.tombol_login {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    border: none;
+    border-radius: 50px;
+    padding: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.tombol_login:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+}
+
+.alert {
+    background: #ffcfcc;
+    color: #f44336;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.container-dashboard {
+    background: white;
+    width: 80%;
+    max-width: 800px;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+
+.bg-admin {
+    border-top: 10px solid #667eea;
+}
+
+.bg-pegawai {
+    border-top: 10px solid #2ecc71;
+}
+
+.bg-pengurus {
+    border-top: 10px solid #f39c12;
+}
+
+.btn-logout:hover {
+    background: #ff6b81;
+}

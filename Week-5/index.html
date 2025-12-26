@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Registrasi Mahasiswa</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            padding: 40px 20px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+        }
+
+        .form-container {
+            background-color: white;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #222;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #007bff;
+        }
+
+        textarea#resultBox {
+            width: 100%;
+            padding: 12px;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            resize: none;
+            height: 80px;
+            font-family: monospace;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .section-title {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #555;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>Form Registrasi Mahasiswa</h2>
+
+        <form id="registrationForm" onsubmit="return validateForm(event)">
+
+            <div class="form-group">
+                <label for="nama">Nama Mahasiswa</label>
+                <input type="text" id="nama" placeholder="Masukkan Nama Lengkap">
+            </div>
+
+            <div class="form-group">
+                <label for="nrp">NRP</label>
+                <input type="text" id="nrp" placeholder="Masukkan NRP">
+            </div>
+
+            <div class="form-group">
+                <label for="matkul">Mata Kuliah</label>
+                <input type="text" id="matkul" placeholder="Masukkan Mata Kuliah">
+            </div>
+
+            <div class="form-group">
+                <label for="dosen">Dosen</label>
+                <input type="text" id="dosen" placeholder="Masukkan Nama Dosen">
+            </div>
+
+            <div class="section-title">Cari Kode Pos</div>
+
+            <div class="form-group">
+                <label for="provinsi">Provinsi</label>
+                <select id="provinsi" onchange="loadCities()">
+                    <option value="">-- Pilih Provinsi --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="kota">Kabupaten/Kota</label>
+                <select id="kota" onchange="loadDistricts()" disabled>
+                    <option value="">-- Pilih Kabupaten/Kota --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="kecamatan">Kecamatan</label>
+                <select id="kecamatan" disabled>
+                    <option value="">-- Pilih Kecamatan --</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="findZipCode()">Cari Kode Pos</button>
+
+            <div class="form-group">
+                <textarea id="resultBox" readonly placeholder="Hasil kode pos akan muncul di sini..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const dataWilayah = {
+            "Jawa Timur": {
+                "Surabaya": {
+                    "Sukolilo": "60111",
+                    "Gubeng": "60281",
+                    "Rungkut": "60293"
+                },
+                "Malang": {
+                    "Lowokwaru": "65141",
+                    "Klojen": "65111"
+                }
+            },
+            "Jawa Barat": {
+                "Bandung": {
+                    "Coblong": "40132",
+                    "Cicendo": "40173"
+                },
+                "Bekasi": {
+                    "Bekasi Barat": "17135",
+                    "Bekasi Timur": "17113"
+                }
+            }
+        };
+
+
+        window.onload = function () {
+            const provinsiSelect = document.getElementById("provinsi");
+            for (let prov in dataWilayah) {
+                let option = document.createElement("option");
+                option.value = prov;
+                option.text = prov;
+                provinsiSelect.add(option);
+            }
+        };
+
+
+        function loadCities() {
+            const provinsi = document.getElementById("provinsi").value;
+            const kotaSelect = document.getElementById("kota");
+            const kecSelect = document.getElementById("kecamatan");
+
+            kotaSelect.innerHTML = '<option value="">-- Pilih Kabupaten/Kota --</option>';
+            kecSelect.innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
+            kecSelect.disabled = true;
+            document.getElementById("resultBox").value = "";
+
+            if (provinsi !== "") {
+                kotaSelect.disabled = false;
+                const kotaList = dataWilayah[provinsi];
+
+                for (let kota in kotaList) {
+                    let option = document.createElement("option");
+                    option.value = kota;
+                    option.text = kota;
+                    kotaSelect.add(option);
+                }
+            } else {
+                kotaSelect.disabled = true;
+            }
+        }
+
+
+        function loadDistricts() {
+            const provinsi = document.getElementById("provinsi").value;
+            const kota = document.getElementById("kota").value;
+            const kecSelect = document.getElementById("kecamatan");
+
+            kecSelect.innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
+            document.getElementById("resultBox").value = "";
+
+            if (kota !== "") {
+                kecSelect.disabled = false;
+                const kecList = dataWilayah[provinsi][kota];
+
+                for (let kec in kecList) {
+                    let option = document.createElement("option");
+                    option.value = kec;
+                    option.text = kec;
+                    kecSelect.add(option);
+                }
+            } else {
+                kecSelect.disabled = true;
+            }
+        }
+
+
+        function findZipCode() {
+            const provinsi = document.getElementById("provinsi").value;
+            const kota = document.getElementById("kota").value;
+            const kecamatan = document.getElementById("kecamatan").value;
+            const resultBox = document.getElementById("resultBox");
+
+            if (provinsi && kota && kecamatan) {
+                const kodePos = dataWilayah[provinsi][kota][kecamatan];
+
+                resultBox.value = `Kode Pos: ${kodePos}\nDaerah: ${kecamatan}, ${kota}, ${provinsi}`;
+            } else {
+                alert("Harap pilih Provinsi, Kota, dan Kecamatan terlebih dahulu!");
+            }
+        }
+
+        function validateForm(event) {
+            event.preventDefault();
+
+            const nama = document.getElementById("nama").value;
+            const nrp = document.getElementById("nrp").value;
+            const matkul = document.getElementById("matkul").value;
+            const dosen = document.getElementById("dosen").value;
+            const result = document.getElementById("resultBox").value;
+
+            if (nama === "" || nrp === "" || matkul === "" || dosen === "" || result === "") {
+                alert("Tidak boleh ada yang kosong!");
+            } else {
+                alert("Data berhasil dikirim!");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

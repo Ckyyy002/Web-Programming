@@ -9,7 +9,7 @@
    Jumbotron (khusus index)
 ================================= */
 .jumbotron {
-    background: url(img/jumbotron.webp);
+    background: url(../img/jumbotron.webp);
     background-size: cover;
     height: 540px;
     position: relative;
@@ -306,4 +306,5 @@ body.kunjungi {
 .page-form .btn-success:hover {
   background-color: #388e3c;
 }
+
 
